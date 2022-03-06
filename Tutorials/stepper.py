@@ -13,6 +13,7 @@ mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
 
 #send 5 step signals 50 times in each direction.
 for i in range(50):
+    #           (pins, wait, steps, ccwise, verbose, steptype, initdelay)
     mymotortest.motor_run(GpioPins , .002, 5, False, False, "full", .05)
 for i in range(50):
     mymotortest.motor_run(GpioPins , .002, 5, True, False, "full", .05)
