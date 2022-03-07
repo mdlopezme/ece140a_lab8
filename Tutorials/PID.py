@@ -21,9 +21,9 @@ mymotortest = RpiMotorLib.BYJMotor("MyMotorOne", "28BYJ")
 step_time = .002
 
 #PID Gain Values (these are just starter values)
-Kp = 0.003
+Kp = 0.002
 Kd = 0.0001
-Ki = 0.0001
+Ki = 0.001
 
 #error values
 d_error = 0
@@ -53,7 +53,8 @@ while(1):
     
     #run an opening to get rid of any noise
     opening=cv2.morphologyEx(red_only,cv2.MORPH_OPEN,mask)
-    cv2.imshow('Masked image', opening)
+    # cv2.imshow('Masked image', opening)
+    cv2.imshow('Image frame', frame)
 
     #run connected components algo to return all objects it sees.        
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(opening,4, cv2.CV_32S)
@@ -75,7 +76,7 @@ while(1):
         speed = Kp * error + Ki * sum_error + Kd * d_error
         
         #if negative speed change direction
-        if speed < 0:
+        if speed > 0:
             direction = False
         else:
             direction = True
@@ -91,6 +92,7 @@ while(1):
         sum_error += (error * delta_t)
         last_error = error
         
+        print(error)
         #buffer of 20 only runs within 20
         if abs(error) > 20:
             mymotortest.motor_run(GpioPins , speed_inv * step_time, 1, direction, False, "full", .05)
