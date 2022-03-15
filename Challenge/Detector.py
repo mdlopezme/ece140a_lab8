@@ -1,11 +1,12 @@
 import cv2 as cv
 import numpy as np
-from SQLManager import SQLManager as sql
+from SQLManager import SQLManager
 
-class DetectCircle(sql):
-    def __init__(self):
-        # Inherit parent properties
-        super().__init__()
+class Detector():
+    def __init__(self, lower_hsv=[0,0,0], upper_hsv=[255,255,255]):
+        # Set HSV Range
+        self.lower_hsv = lower_hsv
+        self.upper_hsv = upper_hsv
 
         # Sequester the video capture device
         self.cap = cv.VideoCapture(0)
@@ -69,7 +70,9 @@ class DetectCircle(sql):
 
 
 def main():
-    detector = DetectCircle()
+    db = SQLManager()
+    detector = Detector(db.lower_hsv,db.upper_hsv)
+    # Set HSV range
     
     while True:
         detector.update()
