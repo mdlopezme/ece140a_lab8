@@ -21,7 +21,7 @@ class DetectCircle(sql):
         if not self.cap.isOpened():
             raise IOError("Cannot open webcam") 
     
-    def hsv_search(self):
+    def update(self):
         '''Find centroid of the biggest surviving contour in a specified HSV range'''
         
         # Capture new image from source
@@ -72,7 +72,7 @@ def main():
     detector = DetectCircle()
     
     while True:
-        detector.hsv_search()
+        detector.update()
         if(detector.detected):
             print(f'Process var: {detector.pv}')
         else:
