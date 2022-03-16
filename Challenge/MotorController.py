@@ -41,30 +41,13 @@ def main():
     motor = StepperMotor()
     sql = SQLManager()
     detector = Detector(sql.lower_hsv,sql.upper_hsv)
-    q = Queue()
+    detection_queue = Queue()
 
-    thread1 = Thread(target=detector.start, args=(q,))
-    thread2 = Thread(target = motor.start, args =(q, ))
+    thread1 = Thread(target=detector.start, args=(detection_queue,))
+    thread2 = Thread(target=motor.start, args =(detection_queue, ))
 
     thread1.start()
     thread2.start()
-
-    # try:
-    #     while True:
-    #         detector.update()
-            
-    #         if(detector.detected):
-    #             print(f'Process var: {detector.pv}')
-    #             motor.run(detector.pv)
-    #         else:
-    #             motor.run()
-    #             print('Not Found!')
-                
-    #         cv.imshow('Webcam', detector.frame)
-    #         if cv.waitKey(1) & 0xFF == ord('q'):
-    #             break
-    # except KeyboardInterrupt:
-    #     motor.run()
 
 if __name__ == '__main__':
     main()
