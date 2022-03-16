@@ -41,7 +41,7 @@ def main():
     motor = StepperMotor()
     sql = SQLManager()
     detector = Detector(sql.lower_hsv,sql.upper_hsv)
-    detection_queue = Queue()
+    detection_queue = Queue(maxsize=1)
 
     thread1 = Thread(target=detector.start, args=(detection_queue,))
     thread2 = Thread(target=motor.start, args =(detection_queue, ))
