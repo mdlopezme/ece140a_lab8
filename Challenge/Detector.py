@@ -1,6 +1,8 @@
 import cv2 as cv
 import numpy as np
 from SQLManager import SQLManager
+from queue import Queue
+from threading import Thread
 
 class Detector():
     def __init__(self, lower_hsv=[0,0,0], upper_hsv=[255,255,255]):
@@ -68,21 +70,29 @@ class Detector():
         else:
             self.detected = False
 
+    def start(self,out_q):
+        while True:
+            self.update()
+            out_q.put((self.detected,self.pv))
+
+# A thread that consumes data
+def consumer(in_q):
+    while True:
+        # Get some data
+        data = in_q.get()
+        print(data)
 
 def main():
     db = SQLManager()
     detector = Detector(db.lower_hsv,db.upper_hsv)
+    q = Queue()
     # Set HSV range
     
-    while True:
-        detector.update()
-        if(detector.detected):
-            print(f'Process var: {detector.pv}')
-        else:
-            print('Not Found!')
-        # Wait for q keypress or KeyboardInterrupt event to occur
-        if cv.waitKey(1) & 0xFF == ord('q'):
-            break
+    thread1 = Thread(target=detector.start, args=(q,))
+    thread2 = Thread(target = consumer, args =(q, ))
+
+    thread1.start()
+    thread2.start()
 
 if __name__ == '__main__':
     main()
