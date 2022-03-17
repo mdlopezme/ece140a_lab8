@@ -8,6 +8,7 @@ from Detector import Detector
 from queue import Queue
 from SQLManager import SQLManager
 from MotorController import StepperMotor
+from GPS import GPS
 from time import sleep
 import cv2 as cv
 import numpy as np
@@ -35,6 +36,7 @@ class WebServer():
 		self.sql = SQLManager()
 		self.detector = Detector(self.q, self.sql.lower_hsv,self.sql.upper_hsv)
 		self.motor = StepperMotor(self.q)
+		self.gps = GPS()
 		print('Web server started on: http://192.168.1.100:6543')
 		self.server_thread = Thread(target=self.server.serve_forever,name="Web Server")
 		self.server_thread.start()
@@ -42,6 +44,7 @@ class WebServer():
 	def stop(self):
 		self.motor.stop()
 		self.detector.stop()
+		self.gps.stop()
 		print("Ending webserver")
 		self.server.shutdown()
 

@@ -41,6 +41,8 @@ class GPS():
         while self.keepAlive:
             self.get_coords()
 
+    def stop(self):
+        self.keepAlive = False
 
 def main():
     gps = GPS()
