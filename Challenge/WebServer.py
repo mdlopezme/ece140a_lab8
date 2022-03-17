@@ -22,12 +22,14 @@ class WebServer():
 			config.add_route('objects', '/objects')
 			config.add_route('object_found', '/object_found')
 			config.add_route('get_coords', '/get_coords')
+			config.add_route('save_object', '/save_object')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
 			config.add_view(self.get_objects, route_name='objects', renderer='json')
 			config.add_view(self.object_found, route_name='object_found', renderer='json')
 			config.add_view(self.get_coords, route_name='get_coords', renderer='json')
+			config.add_view(self.save_object, route_name='save_object', renderer='json')
 
 			app = config.make_wsgi_app()
 
@@ -35,9 +37,19 @@ class WebServer():
 
 		self.start()
 
+	def save_object(self, req):
+		# TODO: Verify the object is valid. (Had to go to class, lol. Will do it when I come back)
+		try:
+			the_object=req.params['object']
+			coords = self.gps.loc
+			self.sql.add(the_object,str((coords[0],coords[1])))
+		except:
+			return False
+		return True
+
 	def get_coords(self,req):
 		return self.gps.loc
-		
+
 	def object_found(self,req):
 		return self.motor.object_found
 

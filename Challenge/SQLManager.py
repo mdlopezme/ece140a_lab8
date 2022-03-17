@@ -44,17 +44,16 @@ class SQLManager():
         values = np.array(self.cursor.fetchall())[0]
 
         # Set internal vars
-        self.active_object = object
         self.lower_hsv = values[0:3]
         self.upper_hsv = values[3:6]
 
-    def add(self, coords):
+    def add(self,object, coords):
         '''Give it an objectType and GPS Coordinates'''
         # Count number of object types
         try:
             self.cursor.execute(f'''
                 SELECT COUNT(type) AS objectInstances from Found_Objects
-                WHERE type=\'{self.active_object}\';
+                WHERE type=\'{object}\';
             ''')
         except:
             print('Unable to count object types in Found_Objects')
@@ -67,7 +66,7 @@ class SQLManager():
                 INSERT INTO Found_Objects
                 (name, address, type)
                 VALUES
-                (\'{self.active_object}\',\'{coords}\',\'{self.active_object}\')
+                (\'{object}\',\'{coords}\',\'{object}\')
             ''')
             self.db.commit()
         else:
@@ -75,11 +74,11 @@ class SQLManager():
                 INSERT INTO Found_Objects
                 (name, address, type)
                 VALUES
-                (\'{self.active_object+str(num_of_objects)}\',\'{coords}\',\'{self.active_object}\')
+                (\'{object+str(num_of_objects)}\',\'{coords}\',\'{object}\')
             ''')
             self.db.commit()
         
-        print(f'New {self.active_object} found!')
+        print(f'New {object} found!')
     
     def __del__(self):
         print('Closing connection to database')
@@ -89,7 +88,7 @@ def main():
     sql = SQLManager()
     for object in sql.objects:
         sql.set(object)
-        sql.add('Some Coords hjgjhghj')
+        sql.add(object,'Some Coords hjgjhghj')
 
 if __name__ == '__main__':
     main()
