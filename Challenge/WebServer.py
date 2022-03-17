@@ -32,11 +32,12 @@ class WebServer():
 		return FileResponse('Challenge/web_server/index.html')
 
 	def start(self):
+		self.gps = GPS()
 		self.q = Queue(maxsize=1)
 		self.sql = SQLManager()
 		self.detector = Detector(self.q, self.sql.lower_hsv,self.sql.upper_hsv)
 		self.motor = StepperMotor(self.q)
-		self.gps = GPS()
+		
 		print('Web server started on: http://192.168.1.100:6543')
 		self.server_thread = Thread(target=self.server.serve_forever,name="Web Server")
 		self.server_thread.start()

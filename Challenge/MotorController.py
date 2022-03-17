@@ -7,6 +7,7 @@ from threading import Thread
 
 class StepperMotor(RpiMotorLib.BYJMotor):
     def __init__(self, in_q, GpioPins = [18, 23, 24, 25]) -> None:
+        print('Starting motor')
         super().__init__("MyMotorOne", "28BYJ")
         self.pins = GpioPins
         # Declare a named instance of class pass a name and motor type

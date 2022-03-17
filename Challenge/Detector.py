@@ -6,6 +6,8 @@ from threading import Thread
 
 class Detector():
     def __init__(self, out_q, lower_hsv=[0,0,0], upper_hsv=[255,255,255]):
+        print('Starting detector')
+        
         # Set HSV Range
         self.lower_hsv = lower_hsv
         self.upper_hsv = upper_hsv

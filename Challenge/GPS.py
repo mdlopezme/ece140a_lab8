@@ -5,6 +5,7 @@ from threading import Thread
 
 class GPS():
     def __init__(self) -> None:
+        print('Starting GPS')
         self.device  = Serial("/dev/serial0")
 
         # Set starting loc
@@ -42,6 +43,7 @@ class GPS():
             self.get_coords()
 
     def stop(self):
+        print('Stoping GPS')
         self.keepAlive = False
 
 def main():
