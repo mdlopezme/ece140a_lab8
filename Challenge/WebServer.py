@@ -3,6 +3,11 @@ from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from threading import Thread
 from pyramid.response import FileResponse
+from Detector import Detector
+from queue import Queue
+from SQLManager import SQLManager
+from MotorController import StepperMotor
+from time import sleep
 
 class WebServer():
     def __init__(self):
@@ -32,7 +37,18 @@ class WebServer():
         self.server.shutdown()
 
 def main():
-    server = WebServer()
+    try:
+        q = Queue(maxsize=1)
+        sql = SQLManager()
+        detector = Detector(q, sql.lower_hsv,sql.upper_hsv)
+        motor = StepperMotor(q)
+        server = WebServer()
+
+        while True:
+            sleep(1)
+    except KeyboardInterrupt:
+        motor.stop()
+        detector.stop()
 
 if __name__ == '__main__':
     main()

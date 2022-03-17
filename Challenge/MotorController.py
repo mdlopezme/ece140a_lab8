@@ -35,11 +35,11 @@ class StepperMotor(RpiMotorLib.BYJMotor):
             # Get some data
             [detected,pv] = in_q.get()
             if(detected):
-                print(f'Process var: {pv}')
+                # print(f'Process var: {pv}')
                 self.run(pv)
             else:
                 self.run()
-                print('Not Found!')
+                # print('Not Found!')
 
     def stop(self):
         print('Stopping motor')
