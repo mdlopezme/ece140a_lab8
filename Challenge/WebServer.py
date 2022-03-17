@@ -32,7 +32,9 @@ class WebServer():
 		self.start()
 
 	def get_objects(self, req):
-		return self.sql.objects
+		ret = [o for o in self.sql.objects]
+		ret.sort()
+		return ret
 
 	def get_home(self, req):
 		return FileResponse('Challenge/web_server/index.html')
