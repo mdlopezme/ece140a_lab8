@@ -53,14 +53,16 @@ def main():
 	server = WebServer()
 
 	# Show video feed
-	while True:
-		smallImg = cv.resize(server.detector.frame, None, fx=0.3, fy=0.3, interpolation=cv.INTER_AREA)
-		cv.imshow('Webcam', smallImg)
-		# Wait for q keypress or KeyboardInterrupt event to occur
-		if cv.waitKey(1) & 0xFF == ord('q'):
-			break
-
-	server.stop()
+	try:
+		while True:
+			smallImg = cv.resize(server.detector.frame, None, fx=0.3, fy=0.3, interpolation=cv.INTER_AREA)
+			cv.imshow('Webcam', smallImg)
+			# Wait for q keypress or KeyboardInterrupt event to occur
+			if cv.waitKey(1) & 0xFF == ord('q'):
+				server.stop()
+				break
+	except KeyboardInterrupt:
+		server.stop()
 
 if __name__ == '__main__':
 	main()
