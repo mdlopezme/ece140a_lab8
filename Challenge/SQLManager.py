@@ -89,7 +89,7 @@ def main():
     sql = SQLManager()
     for object in sql.objects:
         sql.set(object)
-        sql.add('Some Coords')
+        sql.add('Some Coords hjgjhghj')
 
 if __name__ == '__main__':
     main()

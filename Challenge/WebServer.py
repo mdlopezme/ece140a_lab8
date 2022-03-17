@@ -20,16 +20,21 @@ class WebServer():
 			# Add routes
 			config.add_route('home','/')
 			config.add_route('objects', '/objects')
+			config.add_route('object_found', '/object_found')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
 			config.add_view(self.get_objects, route_name='objects', renderer='json')
+			config.add_view(self.object_found, route_name='objects', renderer='json')
 
 			app = config.make_wsgi_app()
 
 		self.server = make_server('0.0.0.0', 6543, app)
 
 		self.start()
+
+	def object_found(self):
+		return self.motor.object_found
 
 	def get_objects(self, req):
 		ret = [o for o in self.sql.objects]

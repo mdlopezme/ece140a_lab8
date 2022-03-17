@@ -18,6 +18,7 @@ class StepperMotor(RpiMotorLib.BYJMotor):
 		self.tick = 0
 		self.tot_ticks = 256
 		self.search_direction = False
+		self.object_found = False
 
 		# Start the thread
 		thread = Thread(target=self.start, args=(in_q,))
@@ -29,13 +30,15 @@ class StepperMotor(RpiMotorLib.BYJMotor):
 
 		if abs(speed) < 0.15:
 			super().motor_run(self.pins,0,0,ccwise,False,"full",.0)
+			self.object_found = True
 		else:
+			self.object_found = False
 			super().motor_run(self.pins,0.0025,1,ccwise,False,"half",.0)
 			if ccwise:
 				self.tick = self.tick - 1
 			else:
 				self.tick = self.tick + 1
-			# print(self.tick)
+
 	def search(self):
 		if self.tick > self.tot_ticks: # Go the other way if limit reach
 			self.run(-1.0)
@@ -50,9 +53,9 @@ class StepperMotor(RpiMotorLib.BYJMotor):
 			self.run(1.0)
 
 	def start(self,in_q):
-		# TODO: Include a way to keep track of the rotation
 		while self.detecting:
 			# Get some data
+			# print((self.tick,self.object_found))
 			[detected,pv] = in_q.get()
 			if(detected):
 				# print(f'Process var: {pv}')
