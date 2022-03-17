@@ -16,6 +16,10 @@ class Detector():
         self.cap.set(cv.CAP_PROP_FRAME_WIDTH, 640)
         self.cap.set(cv.CAP_PROP_FRAME_HEIGHT, 480)
 
+        # Just initializing doesn't really matter what values they are
+        _, self.frame = self.cap.read()
+        self.mask = self.frame 
+
         # Good to initiliaze
         self.pv = 0.0
         self.detected = False
