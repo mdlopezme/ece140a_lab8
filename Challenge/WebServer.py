@@ -21,11 +21,13 @@ class WebServer():
 			config.add_route('home','/')
 			config.add_route('objects', '/objects')
 			config.add_route('object_found', '/object_found')
+			config.add_route('get_coords', '/get_coords')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
 			config.add_view(self.get_objects, route_name='objects', renderer='json')
-			config.add_view(self.object_found, route_name='objects', renderer='json')
+			config.add_view(self.object_found, route_name='object_found', renderer='json')
+			config.add_view(self.get_coords, route_name='get_coords', renderer='json')
 
 			app = config.make_wsgi_app()
 
@@ -33,7 +35,10 @@ class WebServer():
 
 		self.start()
 
-	def object_found(self):
+	def get_coords(self,req):
+		return self.gps.loc
+		
+	def object_found(self,req):
 		return self.motor.object_found
 
 	def get_objects(self, req):
