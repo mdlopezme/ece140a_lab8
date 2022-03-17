@@ -81,7 +81,7 @@ class Detector():
             out_q.put((self.detected,self.pv))
 
     def stop(self):
-        print('stop detector')
+        print('Stopping detector')
         self.keepAlive = False
 
 # A thread that consumes data

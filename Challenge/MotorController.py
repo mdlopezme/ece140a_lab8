@@ -23,7 +23,6 @@ class StepperMotor(RpiMotorLib.BYJMotor):
     def run(self,speed=0.0):
         '''The purpose of this method is to pass GPIO Pins to motor_run'''
         ccwise = speed < 0
-        sum = 
 
         if abs(speed) < 0.15:
             super().motor_run(self.pins,0,0,ccwise,False,"full",.0)
@@ -43,7 +42,7 @@ class StepperMotor(RpiMotorLib.BYJMotor):
                 print('Not Found!')
 
     def stop(self):
-        print('stop motor')
+        print('Stopping motor')
         self.detecting = False
 
 def main():
@@ -56,10 +55,9 @@ def main():
         while True:
             sleep(1)
     except KeyboardInterrupt:
-        print('Hi')
         motor.stop()
         detector.stop()
-    print('done')
 
 if __name__ == '__main__':
     main()
+    print('done')
