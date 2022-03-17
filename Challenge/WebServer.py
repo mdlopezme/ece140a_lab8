@@ -4,6 +4,7 @@ from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from threading import Thread
 from pyramid.response import FileResponse
+from webob import Response
 from Detector import Detector
 from queue import Queue
 from SQLManager import SQLManager
@@ -18,15 +19,20 @@ class WebServer():
 		with Configurator() as config:
 			# Add routes
 			config.add_route('home','/')
+			config.add_route('objects', '/objects')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
+			config.add_view(self.get_objects, route_name='objects', renderer='json')
 
 			app = config.make_wsgi_app()
 
 		self.server = make_server('0.0.0.0', 6543, app)
 
 		self.start()
+
+	def get_objects(self, req):
+		return self.sql.objects
 
 	def get_home(self, req):
 		return FileResponse('Challenge/web_server/index.html')
