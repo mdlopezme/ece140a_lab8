@@ -2,7 +2,7 @@
     "calibration_mode": true,
     "color_detection": {
         "lower_hue1": 0,
-        "lower_sat1": 144,
+        "lower_sat1": 49,
         "lower_val1": 57,
         "upper_hue1": 23,
         "upper_sat1": 255,

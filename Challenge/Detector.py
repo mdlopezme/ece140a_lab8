@@ -5,7 +5,7 @@ from queue import Queue
 from threading import Thread
 
 class Detector():
-    def __init__(self, lower_hsv=[0,0,0], upper_hsv=[255,255,255]):
+    def __init__(self, out_q, lower_hsv=[0,0,0], upper_hsv=[255,255,255]):
         # Set HSV Range
         self.lower_hsv = lower_hsv
         self.upper_hsv = upper_hsv
@@ -23,6 +23,11 @@ class Detector():
         # Check if the webcam is opened correctly
         if not self.cap.isOpened():
             raise IOError("Cannot open webcam") 
+
+        # Start Thread
+        self.keepAlive = True
+        thread = Thread(target=self.start, args =(out_q, ))
+        thread.start()
     
     def update(self):
         '''Find centroid of the biggest surviving contour in a specified HSV range'''
@@ -71,9 +76,13 @@ class Detector():
             self.detected = False
 
     def start(self,out_q):
-        while True:
+        while self.keepAlive:
             self.update()
             out_q.put((self.detected,self.pv))
+
+    def stop(self):
+        print('stop detector')
+        self.keepAlive = False
 
 # A thread that consumes data
 def consumer(in_q):

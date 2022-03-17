@@ -4,7 +4,7 @@ import numpy as np
 
 class JSONManager():
     def __init__(self):
-        self.path = 'Challenge/calibration/settings.json'
+        self.path = 'Challenge/utilities/settings.json'
         f = open(self.path)
         self.settings = json.load(f)
         f.close
