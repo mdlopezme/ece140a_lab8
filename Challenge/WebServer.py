@@ -33,7 +33,7 @@ class WebServer():
 			config.add_view(self.get_cam, route_name='get_cam')
 
 			# Static Routes
-			config.add_static_view(name='/', path='/home/pi/repositories/ece140a_lab8/Challenge/web_server/public', cache_max_age=3600) # TODO: Relative path
+			config.add_static_view(name='/', path='WebServer:web_server/public/', cache_max_age=3600) # TODO: Relative path
 
 			app = config.make_wsgi_app()
 
@@ -86,7 +86,8 @@ class WebServer():
 		return self.gps.loc
 
 	def object_found(self,req):
-		return self.motor.object_found
+		# return self.motor.object_found
+		return "True" if self.motor.object_found else "False"
 
 	def get_objects(self, req):
 		ret = [o for o in self.sql.objects]
