@@ -43,7 +43,6 @@ class WebServer():
 					self.sql.set(object) # Fetch values from sql database
 					self.detector.lower_hsv = self.sql.lower_hsv # Update detector values
 					self.detector.upper_hsv = self.sql.upper_hsv # Update detector values
-					print(self.detector.lower_hsv)
 					return True
 		except:
 			return False
@@ -64,11 +63,10 @@ class WebServer():
 
 	def add_object(self,the_object):
 		try:
-			coords = self.gps.loc
+			coords = self.gps.loc # Get location String
 			lat = round(coords[0],5)
 			lon = round(coords[1],5)
 			coords = str([lat, lon])
-			print(coords)
 			self.sql.add(the_object,coords)
 		except:
 			return False
