@@ -23,6 +23,7 @@ class WebServer():
 			config.add_route('object_found', '/object_found')
 			config.add_route('get_coords', '/get_coords')
 			config.add_route('save_object', '/save_object')
+			config.add_route('set_object', '/set_object')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
@@ -30,6 +31,7 @@ class WebServer():
 			config.add_view(self.object_found, route_name='object_found', renderer='json')
 			config.add_view(self.get_coords, route_name='get_coords', renderer='json')
 			config.add_view(self.save_object, route_name='save_object', renderer='json')
+			config.add_view(self.set_object, route_name='set_object', renderer='json')
 
 			app = config.make_wsgi_app()
 
@@ -37,8 +39,22 @@ class WebServer():
 
 		self.start()
 
+	def set_object(self, req):
+		try:
+			the_object=req.params['object']
+			for object in self.sql.objects:
+				if object == the_object:
+					self.sql.set(object) # Fetch values from sql database
+					self.detector.lower_hsv = self.sql.lower_hsv # Update detector values
+					self.detector.upper_hsv = self.sql.upper_hsv # Update detector values
+					print(self.detector.lower_hsv)
+					return True
+		except:
+			return False
+		
+		return False # If for some reason, might as well have false
+
 	def save_object(self, req):
-		# TODO: Verify the object is valid. (Had to go to class, lol. Will do it when I come back)
 		try:
 			the_object=req.params['object']
 			for object in self.sql.objects:
