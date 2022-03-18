@@ -41,6 +41,17 @@ class WebServer():
 		# TODO: Verify the object is valid. (Had to go to class, lol. Will do it when I come back)
 		try:
 			the_object=req.params['object']
+			for object in self.sql.objects:
+				if object == the_object:
+					self.add_object(object)
+					return True
+		except:
+			return False
+		
+		return False # If for some reason, might as well have false
+
+	def add_object(self,the_object):
+		try:
 			coords = self.gps.loc
 			lat = round(coords[0],5)
 			lon = round(coords[1],5)
@@ -49,7 +60,6 @@ class WebServer():
 			self.sql.add(the_object,coords)
 		except:
 			return False
-		return True
 
 	def get_coords(self,req):
 		return self.gps.loc
