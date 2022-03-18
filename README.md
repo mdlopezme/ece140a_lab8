@@ -5,6 +5,9 @@ Moises Lopez: A14156109
 ## Introduction
 
 
+## Challenge: The Final Boss
+Yaa-Dee-Yaa-Daa
+
 ## Tutorials
 
 ### Tutorial 1: Introduction to CAD
@@ -29,7 +32,4 @@ This tutorial showed the steper motor's internal workings. The device uses a rot
 *Live feed of selected mask next to input image.*
 
 ### Tutorial 5: PID Controller
-In this tutorial we learn how a PID feedback loop works. And how to implement in python.
-
-## Challenge: The Final Boss
-Yaa-Dee-Yaa-Daa
+In this tutorial we learn how a PID feedback loop works. And how to implement PID in python.
