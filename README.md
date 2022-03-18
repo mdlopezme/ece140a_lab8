@@ -30,3 +30,6 @@ This tutorial showed the steper motor's internal workings. The device uses a rot
 
 ### Tutorial 5: PID Controller
 In this tutorial we learn how a PID feedback loop works. And how to implement in python.
+
+## Challenge: The Final Boss
+Yaa-Dee-Yaa-Daa
