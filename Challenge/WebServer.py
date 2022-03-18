@@ -20,6 +20,7 @@ class WebServer():
 			config.add_route('get_coords', '/get_coords')
 			config.add_route('save_object', '/save_object')
 			config.add_route('set_object', '/set_object')
+			config.add_route('get_cam', '/get_cam')
 
 			# Create views for routes
 			config.add_view(self.get_home, route_name='home')
@@ -28,12 +29,20 @@ class WebServer():
 			config.add_view(self.get_coords, route_name='get_coords', renderer='json')
 			config.add_view(self.save_object, route_name='save_object', renderer='json')
 			config.add_view(self.set_object, route_name='set_object', renderer='json')
+			config.add_view(self.get_cam, route_name='get_cam')
+
+			# Static Routes
+	  		config.add_static_view(name='/', path='main:Challenge/web_server/public/', cache_max_age=3600)
 
 			app = config.make_wsgi_app()
 
 		self.server = make_server('0.0.0.0', 6543, app)
 
 		self.start()
+
+	def get_cam(self, req):
+		cv.imwrite('temp.jpg', self.detector.frame)
+		return FileResponse('temp.jpg', request=req, content_type='image/jpeg' )
 
 	def set_object(self, req):
 		try:
