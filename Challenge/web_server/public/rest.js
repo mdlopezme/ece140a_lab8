@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   console.log('Document Loaded')
-  object_select=document.getElementById('object')
+  let object_select=document.getElementById('object')
   fetch('/objects')
     .then(response=>response.json())
     .then(function(response){
@@ -64,6 +64,7 @@ function updatePage() {
 
 function updateImage() {
   document.getElementById('webcam_image').src='/get_cam?=' + new Date().getTime();
+  // append time to force fetch instead of using cache
 }
 
 function getCoords() {
@@ -88,7 +89,6 @@ function save_object() {
 
 function inject_response(response,tableID) {
   let theTable=document.getElementById(tableID);
-
   let rowCount = theTable.rows.length;
   for (let i = 0; i < rowCount; i++) {
       theTable.deleteRow(0);
@@ -104,6 +104,7 @@ function reveal_section(item) {
   if (r.style.display == "none") {
     r.style.display = "";
     // https://www.w3schools.com/jsref/prop_style_display.asp
+    // for other options
   }
 }
 
