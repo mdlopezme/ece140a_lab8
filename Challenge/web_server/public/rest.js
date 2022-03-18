@@ -69,6 +69,7 @@ function reveal_section(item) {
   var r = document.getElementById(item);
   if (r.style.display == "none") {
     r.style.display = "block";
+    // https://www.w3schools.com/jsref/prop_style_display.asp
   }
 }
 
