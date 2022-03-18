@@ -57,7 +57,7 @@ body {
   background-color: #f3f3f3;
 }
 
-/* Mouse hover effect for schedule */
+/* Mouse hover effect for table */
 .stylish-table tbody tr:hover {
   background-color: rgba(246, 207, 143, 0.616);
 }
