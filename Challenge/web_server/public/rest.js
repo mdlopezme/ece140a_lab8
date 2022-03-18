@@ -71,12 +71,18 @@ function getCoords() {
   fetch('/get_coords')
     .then(response=>response.json())
     .then(function(response){
-      console.log("hello");
       inject_response(response,'location_data');
   })
+  fetch('/get_raw_coords')
+    .then(response=>response.json())
+    .then(function(response){
+      console.log(response);
+      document.getElementById('raw_coords').innerHTML=response;
+    })
 }
 
 function save_object() {
+  hide_section('save_object');
   let the_object=document.getElementById('object').value;
   fetch('/save_object?object='+the_object);
 }
