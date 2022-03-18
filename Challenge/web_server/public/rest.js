@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
         object_select.appendChild(new_option);
       }
     })
-  // var intervalID = setInterval(update_webcam, 500);
-  // var intervalID = setInterval(updatePage,2000)
   hide_section('location');
   hide_section('save_object');
   updatePage();
@@ -34,6 +32,10 @@ function updatePage() {
   let the_object=document.getElementById('object').value;
   let the_message=document.getElementById('early_result');
   if (""==the_object) {
+    try {
+      if (intervalID)
+        clearInterval(intervalID);
+    } catch (error) {}
     hide_section('location');
     hide_section('save_object')
     reveal_section('early_result');
@@ -41,7 +43,6 @@ function updatePage() {
     return
   }
 
-  // the_message.innerHTML=""
   fetch('/object_found')
     .then(response=>response.json())
     .then(function(response){
@@ -75,23 +76,15 @@ function getCoords() {
   })
 }
 
-function reveal_section(item) {
-  var r = document.getElementById(item);
-  if (r.style.display == "none") {
-    r.style.display = "table";
-    // https://www.w3schools.com/jsref/prop_style_display.asp
-  }
-}
-
-function hide_section(item) {
-  var s = document.getElementById(item);
-    s.style.display = "none";
+function save_object() {
+  let the_object=document.getElementById('object').value;
+  fetch('/save_object?object='+the_object);
 }
 
 function inject_response(response,tableID) {
   console.log('injecting coords')
   let theTable=document.getElementById(tableID);
-  // Clear table
+
   let rowCount = theTable.rows.length;
   for (let i = 0; i < rowCount; i++) {
       theTable.deleteRow(0);
@@ -103,7 +96,15 @@ function inject_response(response,tableID) {
   }
 }
 
-function save_object() {
-  let the_object=document.getElementById('object').value;
-  fetch('/save_object?object='+the_object);
+function reveal_section(item) {
+  var r = document.getElementById(item);
+  if (r.style.display == "none") {
+    r.style.display = "";
+    // https://www.w3schools.com/jsref/prop_style_display.asp
+  }
+}
+
+function hide_section(item) {
+  var s = document.getElementById(item);
+    s.style.display = "none";
 }
