@@ -13,8 +13,9 @@ document.addEventListener("DOMContentLoaded", function() {
     })
   // var intervalID = setInterval(update_webcam, 500);
   // var intervalID = setInterval(updatePage,2000)
-  hide_section('location')
-  updatePage()
+  hide_section('location');
+  hide_section('save_object');
+  updatePage();
 });
 
 function detectObject() {
@@ -23,9 +24,9 @@ function detectObject() {
       clearInterval(intervalID);
   } catch (error) {}
 
-  let the_object=document.getElementById('object').value
-  fetch('/set_object?object='+the_object)
-  intervalID = setInterval(updatePage,500)
+  let the_object=document.getElementById('object').value;
+  fetch('/set_object?object='+the_object);
+  intervalID = setInterval(updatePage,500);
 }
 
 function updatePage() {
@@ -34,6 +35,7 @@ function updatePage() {
   let the_message=document.getElementById('early_result');
   if (""==the_object) {
     hide_section('location');
+    hide_section('save_object')
     reveal_section('early_result');
     the_message.innerHTML="No object selected."
     return
@@ -47,11 +49,13 @@ function updatePage() {
       if ("True"==response) {
         clearInterval(intervalID);
         hide_section('early_result');
-        reveal_section('location')
+        reveal_section('save_object');
+        reveal_section('location');
         getCoords();
       }
       else {
         hide_section('location');
+        hide_section('save_object');
         reveal_section('early_result');
         the_message.innerHTML="Looking for object...";
       }
@@ -59,9 +63,6 @@ function updatePage() {
 }
 
 function updateImage() {
-  // let the_image = document.getElementById('webcam_image').src;
-  // the_image.src='/get_cam?' + new Date().getTime();
-  // the_image.src='/get_cam?';
   document.getElementById('webcam_image').src='/get_cam?=' + new Date().getTime();
 }
 
@@ -100,4 +101,9 @@ function inject_response(response,tableID) {
   for (i=0;i<3;i++) {
     theRow.insertCell().innerHTML=response[i];
   }
+}
+
+function save_object() {
+  let the_object=document.getElementById('object').value;
+  fetch('/save_object?object='+the_object);
 }
