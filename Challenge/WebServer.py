@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
-from http import server
 from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from threading import Thread
 from pyramid.response import FileResponse
-from webob import Response
 from Detector import Detector
 from queue import Queue
 from SQLManager import SQLManager
 from MotorController import StepperMotor
 from GPS import GPS
-from time import sleep
 import cv2 as cv
-import numpy as np
 
 class WebServer():
 	def __init__(self):
