@@ -1,7 +1,10 @@
 body {
   font-family: sans-serif;
   max-width:750px;
-  margin: auto;
+  /* margin: auto; */
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: auto;
 }
 
 .grid-container {
