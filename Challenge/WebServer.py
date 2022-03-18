@@ -81,6 +81,8 @@ class WebServer():
 			self.sql.add(the_object,coords)
 		except:
 			return False
+			
+		return True
 
 	def get_coords(self,req):
 		return self.gps.loc
