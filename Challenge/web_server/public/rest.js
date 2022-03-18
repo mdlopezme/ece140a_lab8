@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function detectObject() {
   try {
-    if (intervalID)
-      clearInterval(intervalID);
+    clearInterval(intervalID);
   } catch (error) {}
 
   let the_object=document.getElementById('object').value;
@@ -33,13 +32,13 @@ function updatePage() {
   let the_message=document.getElementById('early_result');
   if (""==the_object) {
     try {
-      if (intervalID)
-        clearInterval(intervalID);
+      clearInterval(intervalID);
     } catch (error) {}
     hide_section('location');
-    hide_section('save_object')
+    hide_section('save_object');
     reveal_section('early_result');
-    the_message.innerHTML="No object selected."
+    the_message.innerHTML="No object selected.";
+    document.getElementById('raw_coords').innerHTML="";
     return
   }
 
@@ -59,6 +58,7 @@ function updatePage() {
         hide_section('save_object');
         reveal_section('early_result');
         the_message.innerHTML="Looking for object...";
+        document.getElementById('raw_coords').innerHTML="";
       }
     })
 }
