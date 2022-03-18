@@ -9,6 +9,7 @@ from SQLManager import SQLManager
 from MotorController import StepperMotor
 from GPS import GPS
 import cv2 as cv
+from time import sleep
 
 class WebServer():
 	def __init__(self):
@@ -32,7 +33,7 @@ class WebServer():
 			config.add_view(self.get_cam, route_name='get_cam')
 
 			# Static Routes
-	  		config.add_static_view(name='/', path='main:Challenge/web_server/public/', cache_max_age=3600)
+			config.add_static_view(name='/', path='/home/pi/repositories/ece140a_lab8/Challenge/web_server/public', cache_max_age=3600) # TODO: Relative path
 
 			app = config.make_wsgi_app()
 
@@ -41,7 +42,8 @@ class WebServer():
 		self.start()
 
 	def get_cam(self, req):
-		cv.imwrite('temp.jpg', self.detector.frame)
+		smallImg = cv.resize(self.detector.frame, None, fx=0.5, fy=0.5, interpolation=cv.INTER_AREA)
+		cv.imwrite('temp.jpg', smallImg)
 		return FileResponse('temp.jpg', request=req, content_type='image/jpeg' )
 
 	def set_object(self, req):
@@ -118,12 +120,7 @@ def main():
 	# Show video feed
 	try:
 		while True:
-			smallImg = cv.resize(server.detector.frame, None, fx=0.3, fy=0.3, interpolation=cv.INTER_AREA)
-			cv.imshow('Webcam', smallImg)
-			# Wait for q keypress or KeyboardInterrupt event to occur
-			if cv.waitKey(1) & 0xFF == ord('q'):
-				server.stop()
-				break
+			sleep(100)
 	except KeyboardInterrupt:
 		server.stop()
 
