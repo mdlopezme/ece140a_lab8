@@ -2,6 +2,7 @@ from serial import Serial
 from pynmea2 import parse
 from reverse_geocoder import search
 from threading import Thread
+from time import sleep
 
 class GPS():
     def __init__(self) -> None:
@@ -25,7 +26,8 @@ class GPS():
             data = (str)(self.device.readline())
 
         # Convert GPGGA string to coordinates
-        msg = parse(data[2:-5]) # Remove some weird characters
+        self.raw = data[2:-5]
+        msg = parse(self.raw) # Remove some weird characters
         coords = (msg.latitude,msg.longitude)
         
         # Reserve geocoding
@@ -52,7 +54,9 @@ class GPS():
 def main():
     gps = GPS()
     while True:
-        print(gps.loc)
+        # print(gps.loc)
+        gps.get_coords()
+        sleep(2)
         
 
 if __name__ == '__main__':

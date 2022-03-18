@@ -19,6 +19,7 @@ class WebServer():
 			config.add_route('objects', '/objects')
 			config.add_route('object_found', '/object_found')
 			config.add_route('get_coords', '/get_coords')
+			config.add_route('get_raw_coords', '/get_raw_coords')
 			config.add_route('save_object', '/save_object')
 			config.add_route('set_object', '/set_object')
 			config.add_route('get_cam', '/get_cam')
@@ -28,6 +29,7 @@ class WebServer():
 			config.add_view(self.get_objects, route_name='objects', renderer='json')
 			config.add_view(self.object_found, route_name='object_found', renderer='json')
 			config.add_view(self.get_coords, route_name='get_coords', renderer='json')
+			config.add_view(self.get_raw_coords, route_name='get_raw_coords', renderer='json')
 			config.add_view(self.save_object, route_name='save_object', renderer='json')
 			config.add_view(self.set_object, route_name='set_object', renderer='json')
 			config.add_view(self.get_cam, route_name='get_cam')
@@ -86,6 +88,9 @@ class WebServer():
 
 	def get_coords(self,req):
 		return self.gps.loc
+
+	def get_raw_coords(self,req):
+		return self.gps.raw
 
 	def object_found(self,req):
 		# return self.motor.object_found
