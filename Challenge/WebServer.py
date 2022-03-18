@@ -93,7 +93,6 @@ class WebServer():
 		return self.gps.raw
 
 	def object_found(self,req):
-		# return self.motor.object_found
 		return "True" if self.motor.object_found else "False"
 
 	def get_objects(self, req):
@@ -125,7 +124,6 @@ class WebServer():
 def main():
 	server = WebServer()
 
-	# Show video feed
 	try:
 		while True:
 			sleep(100)
