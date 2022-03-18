@@ -75,8 +75,8 @@ class WebServer():
 	def add_object(self,the_object):
 		try:
 			coords = self.gps.loc # Get location String
-			lat = round(coords[0],5)
-			lon = round(coords[1],5)
+			lat = coords[0]
+			lon = coords[1]
 			coords = str([lat, lon])
 			self.sql.add(the_object,coords)
 		except:

@@ -36,7 +36,10 @@ class GPS():
         county = rg['admin2']
         country = rg['cc']
 
-        self.loc = msg.latitude, msg.longitude, city,county,state,country
+        lat = round(msg.latitude,3)
+        lon = round(msg.longitude,3)
+
+        self.loc = lat, lon, city,county,state,country
 
     def start(self):
         while self.keepAlive:
