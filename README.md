@@ -8,7 +8,7 @@ Moises Lopez: A14156109
 ## Challenge: The Final Boss
 
 ### Programming
-All of the following modules work on their own thread. So that ther internal internal variables are always up to date.
+All of the following modules work on their own thread. So that ther internal internal variables are always up to d ate.
 
 ### Detector.py
 This module does the following.
