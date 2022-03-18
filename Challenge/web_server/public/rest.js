@@ -18,17 +18,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function detectObject() {
+  try {
+    if (intervalID)
+      clearInterval(intervalID);
+  } catch (error) {}
+
   let the_object=document.getElementById('object').value
   fetch('/set_object?object='+the_object)
-  intervalID = setInterval(updatePage,2000)
+  intervalID = setInterval(updatePage,500)
 }
 
 function updatePage() {
   updateImage();
   let the_object=document.getElementById('object').value;
   let the_message=document.getElementById('early_result');
-  reveal_section('early_result');
   if (""==the_object) {
+    hide_section('location');
+    reveal_section('early_result');
     the_message.innerHTML="No object selected."
     return
   }
@@ -41,9 +47,12 @@ function updatePage() {
       if ("True"==response) {
         clearInterval(intervalID);
         hide_section('early_result');
+        reveal_section('location')
         getCoords();
       }
       else {
+        hide_section('location');
+        reveal_section('early_result');
         the_message.innerHTML="Looking for object...";
       }
     })
@@ -57,18 +66,18 @@ function updateImage() {
 }
 
 function getCoords() {
-  reveal_section('location')
   fetch('/get_coords')
-  .then(response=>response.json())
-  .then(function(response){
-    console.log(response);
+    .then(response=>response.json())
+    .then(function(response){
+      console.log("hello");
+      inject_response(response,'location_data');
   })
 }
 
 function reveal_section(item) {
   var r = document.getElementById(item);
   if (r.style.display == "none") {
-    r.style.display = "block";
+    r.style.display = "table";
     // https://www.w3schools.com/jsref/prop_style_display.asp
   }
 }
@@ -76,4 +85,19 @@ function reveal_section(item) {
 function hide_section(item) {
   var s = document.getElementById(item);
     s.style.display = "none";
+}
+
+function inject_response(response,tableID) {
+  console.log('injecting coords')
+  let theTable=document.getElementById(tableID);
+  // Clear table
+  let rowCount = theTable.rows.length;
+  for (let i = 0; i < rowCount; i++) {
+      theTable.deleteRow(0);
+  }
+  console.log('injecting coords')
+  let theRow = theTable.insertRow();
+  for (i=0;i<3;i++) {
+    theRow.insertCell().innerHTML=response[i];
+  }
 }
