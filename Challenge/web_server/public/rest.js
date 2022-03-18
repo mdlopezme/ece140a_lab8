@@ -45,7 +45,6 @@ function updatePage() {
   fetch('/object_found')
     .then(response=>response.json())
     .then(function(response){
-      console.log(response);
       if ("True"==response) {
         clearInterval(intervalID);
         hide_section('early_result');
@@ -88,14 +87,12 @@ function save_object() {
 }
 
 function inject_response(response,tableID) {
-  console.log('injecting coords')
   let theTable=document.getElementById(tableID);
 
   let rowCount = theTable.rows.length;
   for (let i = 0; i < rowCount; i++) {
       theTable.deleteRow(0);
   }
-  console.log('injecting coords')
   let theRow = theTable.insertRow();
   for (i=0;i<3;i++) {
     theRow.insertCell().innerHTML=response[i];
