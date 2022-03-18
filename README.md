@@ -9,7 +9,8 @@ Moises Lopez: A14156109
 
 ### Tutorial 1: Introduction to CAD
 
-In this tutorial we used Solidworks to make the part especified in the tutorial.  
+In this tutorial we used Solidworks to make the part especified in the t
+torial.  
 Then exported it to STL, and ended up printing it in the ECE Makerspace.
 ![Motor Mount CAD](Images/motor_mount.png)
 
@@ -24,5 +25,8 @@ This tutorial showed how to track an object by color. This was done by creating 
 ### Tutorial 4: Steper Motor
 This tutorial showed the steper motor's internal workings. The device uses a rotor that creates magnetic fields by energising an eletromagnet. Then there is a responsive motor that has permanent magnet that align to the electromagnet's magnetic fields. We learned that the motor can do 360/(64*64) degree turn. And lastly learned how to control the device using python scripts.
 
-![segmentation](Images/tutorial2_segmentation.gif)
+![segmentation](Images/tutorial2_segmentation.gif)  
 *Live feed of selected mask next to input image.*
+
+### Tutorial 5: PID Controller
+In this tutorial we learn how a PID feedback loop works. And how to implement in python.
