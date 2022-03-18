@@ -47,7 +47,7 @@ try:
         CREATE TABLE Found_Objects(
             id          INT AUTO_INCREMENT PRIMARY KEY,
             name        VARCHAR(50) NOT NULL,
-            address     VARCHAR(50) NOT NULL,
+            coords     VARCHAR(50) NOT NULL,
             type        VARCHAR(50) NOT NULL
         )
     ''')

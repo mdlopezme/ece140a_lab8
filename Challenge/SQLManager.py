@@ -64,7 +64,7 @@ class SQLManager():
         if num_of_objects == 0:
             self.cursor.execute(f'''
                 INSERT INTO Found_Objects
-                (name, address, type)
+                (name, coords, type)
                 VALUES
                 (\'{object}\',\'{coords}\',\'{object}\')
             ''')
@@ -72,7 +72,7 @@ class SQLManager():
         else:
             self.cursor.execute(f'''
                 INSERT INTO Found_Objects
-                (name, address, type)
+                (name, coords, type)
                 VALUES
                 (\'{object+str(num_of_objects)}\',\'{coords}\',\'{object}\')
             ''')

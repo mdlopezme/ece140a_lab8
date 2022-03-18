@@ -42,7 +42,11 @@ class WebServer():
 		try:
 			the_object=req.params['object']
 			coords = self.gps.loc
-			self.sql.add(the_object,str((coords[0],coords[1])))
+			lat = round(coords[0],5)
+			lon = round(coords[1],5)
+			coords = str([lat, lon])
+			print(coords)
+			self.sql.add(the_object,coords)
 		except:
 			return False
 		return True
