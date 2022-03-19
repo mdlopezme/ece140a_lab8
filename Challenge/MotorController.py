@@ -26,6 +26,15 @@ class StepperMotor(RpiMotorLib.BYJMotor):
 
 	def run(self,speed=0.0):
 		'''The purpose of this method is to pass GPIO Pins to motor_run'''
+		'''
+			Based on YAGNI principles we are using K=inf for PID
+			(motor at full speed) because the lighting
+			on the object relative to the camera angle
+			changes faster than the actual camera angle,
+			relative to the object. This add noise to
+			the derivative and integral calculations,
+			resulting in unstable/twitchy motor movement.
+		'''
 		ccwise = speed < 0
 
 		if abs(speed) < 0.15:
