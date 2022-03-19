@@ -86,7 +86,7 @@ print('cam released')
 In this tutorial we used Solidworks to make the specified part used to mount the camera to the stepper motor.  
 The part was exported to STL, and printed at the ECE Makerspace.
 
-![Motor Mount CAD](Images/motor_mount.png)
+![Motor Mount CAD](Images/motor_mount.png)  
 *The camera mount*
 
 ### Tutorial 2: Welcome to GPS
