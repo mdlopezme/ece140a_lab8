@@ -55,7 +55,27 @@ sql.set(object)
 ### Demonstration
 The system in action along with the user interface can be seen in this [video](https://youtu.be/I85MJMIBmd4).  
 <br>
-Note: We experienced reliability issues with the RPI webcam. When it is initially plugged into the RPI, it will display images as expected if it is initialized right away. If we stop it and reinitialize it, It sends a distorted (wireframe/threshold) image. Because of this we used a different webcam that uses the same USB interface that the RPI cam uses, but did not suffer from the same reliability issues.
+### Problem
+We experienced reliability issues with the RPI webcam. When it is initially plugged into the RPI, it will display images as expected if it is initialized right away. If we stop it and reinitialize it, It sends a distorted (wireframe/threshold) image. Because of this we used a different webcam that uses the same USB interface that the RPI cam uses, but did not suffer from the same reliability issues.  
+
+| ![good image](images/image-first.png) | ![]() |
+| :--- | :--- |
+| *Example of distorted image. These images were taken consecutively by running the below script twice.* |
+
+
+```python
+import cv2
+
+cam = cv2.VideoCapture(0) # Initialize the camera module
+while(True):
+  ret, image = cam.read() # Get the values (pixels) read by the camera
+  cv2.imshow('original image',image)
+  if cv2.waitKey(1) & 0xFF == ord('q'): 
+    cv2.imwrite("image.png", image)
+    break
+cam.release() # Very Imp: Releasing the camera object
+print('cam released')
+```
 
 ## Tutorials
 
@@ -65,7 +85,7 @@ In this tutorial we used Solidworks to make the specified part used to mount the
 The part was exported to STL, and printed at the ECE Makerspace.
 
 ![Motor Mount CAD](Images/motor_mount.png)
-**
+*The camera mount*
 
 ### Tutorial 2: Welcome to GPS
 In this tutorial we learned how to connect a gps module to the Raspberry. And use Python to print the '$GPGGA' string from the device.
