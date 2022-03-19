@@ -60,7 +60,8 @@ We experienced reliability issues with the RPI webcam. When it is initially plug
 
 | ![good image](images/image-first.png) | ![bad image](images/image-bad-variation.png) |
 | :--- | :--- |
-| *Example of distorted image. These images were taken consecutively by running the below script twice.* | 
+| |
+*Example of distorted image. These images were taken consecutively by running the below script twice.*
 
 
 ```python
