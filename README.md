@@ -3,12 +3,12 @@
 Olivier Rogers: A16069362  
 Moises Lopez: A14156109
 ## Introduction
-
+This lab introduces some light CAD use, GPS, isolating objects based on color, stepper motors, and PID controllers. The challenge combines these concepts with the full-stack IOT development skills we learned over the course of this quarter, to produce a simple system that can detect objects. The user interface is web-based and uses REST routes to control and retrieve data from the system.
 
 ## Challenge: The Final Boss
 
 ### Programming
-The following modules work on their own thread. So that ther internal variables are always up to date. Communication between modules is done using queues.
+The following modules work using their own thread, so that their internal variables are always up to date. Communication between modules is done using queues.
 
 ### Detector.py
 This module does the following.
@@ -33,13 +33,13 @@ This module does the following.
 - The purpose of this module is to control the comunication to the SQL database. This module stores the lower_hsv and upper_hsv values that the detector needs.  
 
 For example. When the page is first loaded, the server uses this module to return a list of objects available in the database.
-```
+```python
 sql = SQLManager()
 objects = sql.objects
 ```
 
 When an object from the list is selected, the manager query the HSV values needed for the detector to track that object.
-```
+```python
 sql.set(object)
 ```
 
@@ -56,11 +56,11 @@ sql.set(object)
 The system in action along with the user interface can be seen in this [video](https://youtu.be/I85MJMIBmd4).  
 <br>
 ### Problem
-We experienced reliability issues with the RPI webcam. When it is initially plugged into the RPI, it will display images as expected if it is initialized right away. If we stop it and reinitialize it, It sends a distorted (wireframe/threshold) image. Because of this we used a different webcam that uses the same USB interface that the RPI cam uses, but did not suffer from the same reliability issues.  
+We experienced reliability issues with the RPI webcam. When it is initially plugged in, it will display images as expected if it is initialized right away. If we stop it and reinitialize it, or if there is some time plugged in before starting it, it sends a distorted (wireframe/threshold) image. Because of this we used a different webcam that uses the same USB interface that the RPI cam uses, but did not suffer from the same reliability issues.  
 
 | ![good image](images/image-first.png) | ![bad image](images/image-bad-variation.png) |
 | :--- | :--- |
-| After first plugging in. | After being plugged in for a bit. |
+| *After first plugging in.* | *After being plugged in for a short bit.* |
 
 These images were taken consecutively by running the below script twice.
 
