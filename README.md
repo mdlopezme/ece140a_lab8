@@ -59,9 +59,8 @@ The system in action along with the user interface can be seen in this [video](h
 We experienced reliability issues with the RPI webcam. When it is initially plugged into the RPI, it will display images as expected if it is initialized right away. If we stop it and reinitialize it, It sends a distorted (wireframe/threshold) image. Because of this we used a different webcam that uses the same USB interface that the RPI cam uses, but did not suffer from the same reliability issues.  
 
 | ![good image](images/image-first.png) | ![bad image](images/image-bad-variation.png) |
-
-
-*Example of distorted image. These images were taken consecutively by running the below script twice.*  
+| :--- | :--- |
+| *Example of distorted image. These images were taken consecutively by running the below script twice.* | 
 
 
 ```python
